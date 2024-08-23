@@ -1,0 +1,56 @@
+.mat-toolbar {
+  display: flex;
+  padding: 0 232px;
+  height: 232px;
+  background-color: #000000;
+  color: white;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 2;
+  min-width: 300px;
+  img {
+    max-width: 100%;
+    max-height: 40px;
+  }
+}
+
+.footer-redes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-redes-img {
+  display: flex;
+  gap: 8px;
+  img {
+    height: 32px;
+    width: 32px;
+    gap: 8px;
+  }
+}
+
+.mat-toolbar img {
+  max-width: 100%;
+  height: auto;
+}
+
+footer {
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
