@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Depoimento } from '../../core/types/depoimento';
 
 @Component({
   selector: 'app-card-depoimento',
   templateUrl: './card-depoimento.component.html',
   styleUrl: './card-depoimento.component.scss',
 })
-export class CardDepoimentoComponent {
-  description: string =
-    'Minha viagem com a Jornada foi incrível! Recomendo muito a agência para quem busca uma experiência emocionante e personalizada a partir das nossas necessidades.';
-  autor: string = 'Mariana Faustino';
+export class CardDepoimentoComponent implements OnInit {
+  @Input() depoimento!: Depoimento;
+
+  description: string = '';
+  autor: string = '';
+  src: string = '';
+
+  ngOnInit(): void {
+    this.description = this.depoimento.texto;
+    this.autor = this.depoimento.autor;
+    this.src = this.depoimento.avatar;
+  }
 }

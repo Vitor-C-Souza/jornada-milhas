@@ -6,24 +6,20 @@
   <app-form-busca></app-form-busca>
   <h2>Promoções</h2>
   <div class="card-wrapper">
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
-    <app-card-busca></app-card-busca>
+    @for (promocao of promocoes; track promocao) {
+    <app-card-busca
+      [destino]="promocao.destino"
+      [src]="promocao.imagem"
+      [alt]="promocao.destino"
+      [preco]="promocao.preco"
+    ></app-card-busca>
+    }
   </div>
   <h2>Depoimentos</h2>
   <div class="card-wrapper">
-    <app-card-depoimento></app-card-depoimento>
-    <app-card-depoimento></app-card-depoimento>
-    <app-card-depoimento></app-card-depoimento>
+    <app-card-depoimento
+      *ngFor="let depoimento of depoimentos"
+      [depoimento]="depoimento"
+    ></app-card-depoimento>
   </div>
 </app-container>
