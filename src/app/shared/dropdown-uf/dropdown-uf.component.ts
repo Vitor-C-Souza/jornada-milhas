@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
-import { EstadosService } from './../../../core/services/estados.service';
-import { Estado } from './../../../core/types/estado';
+import { EstadosService } from '../../core/services/estados.service';
+import { Estado } from '../../core/types/estado';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, startWith } from 'rxjs';
@@ -14,6 +14,7 @@ export class DropdownUfComponent implements OnInit {
   @Input() label: string = '';
   @Input() iconePrefixo: string = '';
   @Input() control!: FormControl;
+  @Input() placeholder: string = '';
 
   filteredOptions$?: Observable<Estado[]>;
 
@@ -32,11 +33,16 @@ export class DropdownUfComponent implements OnInit {
     );
   }
 
-  filtrarUfs(value: string): Estado[] {
-    const valorFiltrado = value?.toLowerCase();
+  filtrarUfs(value: string | Estado): Estado[] {
+    const nomeUf = typeof value === 'string' ? value : value?.nome;
+    const valorFiltrado = nomeUf?.toLowerCase();
     const result = this.estados.filter((estado) =>
       estado.nome.toLowerCase().includes(valorFiltrado)
     );
     return result;
+  }
+
+  displayFn(estado: Estado): string {
+    return estado && estado.nome ? estado.nome : '';
   }
 }

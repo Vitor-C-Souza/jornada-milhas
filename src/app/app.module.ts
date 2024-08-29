@@ -26,12 +26,20 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ModalComponent } from './shared/modal/modal.component';
 import { BotaoControleComponent } from './shared/botao-controle/botao-controle.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { DropdownUfComponent } from './shared/form-busca/dropdown-uf/dropdown-uf.component';
+import { DropdownUfComponent } from './shared/dropdown-uf/dropdown-uf.component';
 import { SeletorPassageiroComponent } from './shared/seletor-passageiro/seletor-passageiro.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './pages/login/login.component';
+import { FormBaseComponent } from './shared/form-base/form-base.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,6 +57,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     BotaoControleComponent,
     DropdownUfComponent,
     SeletorPassageiroComponent,
+    LoginComponent,
+    FormBaseComponent,
+    CadastroComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,8 +80,18 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatDividerModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacaoInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

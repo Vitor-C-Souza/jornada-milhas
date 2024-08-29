@@ -1,0 +1,115 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+app-container {
+  width: 60%;
+  margin-bottom: 48px;
+  margin-top: 32px;
+
+  .acoesPerfil {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 12px 16px 12px 0;
+  }
+
+  .acessoPerfil {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 16px 24px 0;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 22px;
+    color: #1d1b20;
+    margin-left: 16px;
+  }
+  mat-divider {
+    margin: 0 16px;
+    border-top-color: #79747e;
+    margin-top: 24px;
+  }
+
+  mat-card-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 32px;
+    margin-top: 40px;
+  }
+
+  .dados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    grid-template-areas:
+      "nome nome"
+      "aniversario radio-button"
+      "cpf tel"
+      "cidade estado";
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      grid-area: radio-button;
+      margin-bottom: 16px;
+    }
+
+    .-nome {
+      grid-area: nome;
+    }
+    .-aniversario {
+      grid-area: aniversario;
+    }
+    .-cpf {
+      grid-area: cpf;
+    }
+    .-tel {
+      grid-area: tel;
+    }
+    .-cidade {
+      grid-area: cidade;
+    }
+    .-estado {
+      grid-area: estado;
+    }
+  }
+}
+
+.autenticacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "email confirm-email"
+    "senha confirm-senha";
+
+  .-email {
+    grid-area: email;
+  }
+  .-confirm-email {
+    grid-area: confirm-email;
+  }
+  .-senha {
+    grid-area: senha;
+  }
+  .-confirm-email {
+    grid-area: confirm-email;
+  }
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.mdc-card__actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  button: {
+    margin: 0 8px;
+  }
+}

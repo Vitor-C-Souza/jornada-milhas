@@ -1,0 +1,178 @@
+<app-container>
+  <mat-card>
+    <form [formGroup]="cadastroForm">
+      <div class="cabecalho">
+        <mat-card-title>{{ titulo }}</mat-card-title>
+        <section>
+          <div class="acoesPerfil" *ngIf="perfilComponent">
+            <h2>Dados pessoais</h2>
+            <button (click)="deslogar()" mat-stroked-button color="primary">
+              <mat-icon>logout</mat-icon>
+              DESLOGAR
+            </button>
+          </div>
+        </section>
+      </div>
+      <div class="content">
+        <mat-card-content class="dados">
+          <mat-form-field class="-nome" appearance="outline">
+            <mat-label>Nome completo</mat-label>
+            <input formControlName="nome" matInput type="text" />
+            <mat-error *ngIf="cadastroForm.get('nome')?.errors?.['required']"
+              >Nome é obrigatorio</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field
+            class="input-container -aniversario"
+            appearance="outline"
+          >
+            <mat-label>Data de nascimento</mat-label>
+            <input
+              matInput
+              formControlName="nascimento"
+              [matDatepicker]="aniversario"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="aniversario"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #aniversario></mat-datepicker>
+            <mat-error
+              *ngIf="cadastroForm.get('aniversario')?.errors?.['required']"
+              >Data de nascimento é obrigatorio</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="-cpf" appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf" type="text" />
+            <mat-error *ngIf="cadastroForm.get('cpf')?.errors?.['required']"
+              >CPF é obrigatorio</mat-error
+            >
+            <mat-error *ngIf="cadastroForm.get('cpf')?.errors?.['pattern']"
+              >Formato inválido. Use xxx.xxx.xxx-xx</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="-cidade" appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="cidade" type="text" />
+            <mat-error *ngIf="cadastroForm.get('cidade')?.errors?.['required']"
+              >cidade é obrigatorio</mat-error
+            >
+          </mat-form-field>
+          <div class="radio-group">
+            <label>Gênero</label>
+            <mat-radio-group formControlName="genero" class="radio-label">
+              <mat-radio-button value="feminino">Feminino</mat-radio-button>
+              <mat-radio-button value="masculino">Masculino</mat-radio-button>
+              <mat-radio-button value="outro"
+                >Prefiro não informar</mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+          <mat-form-field class="-tel" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" type="tel" />
+            <mat-error
+              *ngIf="cadastroForm.get('telefone')?.errors?.['required']"
+              >telefone é obrigatorio</mat-error
+            >
+            <mat-error *ngIf="cadastroForm.get('telefone')?.errors?.['pattern']"
+              >Formato inválido. Use (XX) XXXXX-XXXX ou (XX)
+              XXXX-XXXX</mat-error
+            >
+          </mat-form-field>
+          <div class="-estado">
+            <app-dropdown-uf
+              label="Estado"
+              placeholder="Estado"
+              [control]="estadoControl"
+            >
+            </app-dropdown-uf>
+            <mat-error *ngIf="estadoControl?.errors && estadoControl?.touched"
+              >Estado é obrigatório</mat-error
+            >
+          </div>
+        </mat-card-content>
+        <mat-divider *ngIf="perfilComponent" />
+        <div class="acessoPerfil" *ngIf="perfilComponent">
+          <h2>Dados de acesso</h2>
+        </div>
+        <mat-card-content class="autenticacao">
+          <mat-form-field class="-confirm-email" appearance="outline">
+            <mat-label>Confirmar e-mail</mat-label>
+            <input matInput formControlName="confirmEmail" type="email" />
+            <mat-error
+              *ngIf="cadastroForm.get('confirmEmail')?.errors?.['required']"
+              >Confirmação é obrigatoria</mat-error
+            >
+            <mat-error
+              *ngIf="cadastroForm.get('confirmEmail')?.errors?.['email']"
+              >Formato inválido</mat-error
+            >
+            <mat-error
+              *ngIf="cadastroForm.get('confirmEmail')?.errors?.['equalTo']"
+              >Emails não combinam</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="confirm-senha" appearance="outline">
+            <mat-label>Confirmar senha</mat-label>
+            <input matInput formControlName="confirmSenha" type="password" />
+            <mat-error
+              *ngIf="cadastroForm.get('confirmSenha')?.errors?.['required']"
+              >Confirmação é obrigatoria</mat-error
+            >
+            <mat-error
+              *ngIf="cadastroForm.get('confirmSenha')?.errors?.['equalTo']"
+              >Senhas não combinam</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="-email" appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" />
+            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['required']"
+              >E-mail é obrigatorio</mat-error
+            >
+            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['email']"
+              >Formato inválido</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="-senha" appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="senha" type="password" />
+            <mat-error *ngIf="cadastroForm.get('senha')?.errors?.['required']"
+              >senha é obrigatoria</mat-error
+            >
+          </mat-form-field>
+          <div class="checkbox" *ngIf="!perfilComponent">
+            <mat-checkbox
+              formControlName="aceitarTermos"
+              color="primary"
+              class="full-width"
+              >Li e aceito os termos e condições deste cadastro.</mat-checkbox
+            >
+            <mat-error
+              *ngIf="
+                cadastroForm.get('aceitarTermos')?.invalid &&
+                cadastroForm.get('aceitarTermos')?.dirty
+              "
+            >
+              Você precisa aceitar os termos e condições para efetuar o cadastro
+            </mat-error>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-flat-button
+            [class.perfil-button]="perfilComponent"
+            [disabled]="cadastroForm.invalid"
+            color="primary"
+            (click)="executarAcao()"
+          >
+            {{ textoBotao }}
+          </button>
+        </mat-card-actions>
+      </div>
+    </form>
+  </mat-card>
+</app-container>
