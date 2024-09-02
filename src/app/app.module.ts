@@ -40,6 +40,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
+import { BuscaComponent } from './pages/busca/busca.component';
+import { PassagemComponent } from './shared/passagem/passagem.component';
+import { FiltrosComplementaresComponent } from './shared/form-busca/filtros-complementares/filtros-complementares.component';
+import { ParadasComponent } from './shared/form-busca/filtros-complementares/paradas/paradas.component';
+import { PrecosComponent } from './shared/form-busca/filtros-complementares/precos/precos.component';
+import { LabelComponent } from './shared/form-busca/filtros-complementares/label/label.component';
+import { CompanhiasComponent } from './shared/form-busca/filtros-complementares/companhias/companhias.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { CardDestaqueComponent } from './shared/card-destaque/card-destaque.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +70,14 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     FormBaseComponent,
     CadastroComponent,
     PerfilComponent,
+    BuscaComponent,
+    PassagemComponent,
+    FiltrosComplementaresComponent,
+    ParadasComponent,
+    PrecosComponent,
+    LabelComponent,
+    CompanhiasComponent,
+    CardDestaqueComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +100,7 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
     MatRadioModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatSliderModule,
   ],
   providers: [
     provideAnimationsAsync(),

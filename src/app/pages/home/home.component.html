@@ -3,7 +3,7 @@
   alt="Banner da aplicação jornada"
 ></app-banner>
 <app-container>
-  <app-form-busca></app-form-busca>
+  <app-form-busca (realizaBusca)="navegarParaBusca($event)"></app-form-busca>
   <h2>Promoções</h2>
   <div class="card-wrapper">
     @for (promocao of promocoes; track promocao) {

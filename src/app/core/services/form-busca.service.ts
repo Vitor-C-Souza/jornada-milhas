@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatChipSelectionChange } from '@angular/material/chips';
 import { ModalComponent } from '../../shared/modal/modal.component';
+import { DadosBusca } from '../types/dados-busca';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,33 @@ export class FormBuscaService {
   formBusca: FormGroup;
 
   constructor(public dialog: MatDialog) {
+    const somenteIda = new FormControl(false, [Validators.required]);
+    const dataVolta = new FormControl(null, [Validators.required]);
     this.formBusca = new FormGroup({
-      somenteIda: new FormControl(false),
-      origem: new FormControl(null),
-      destino: new FormControl(null),
+      somenteIda,
+      origem: new FormControl(null, [Validators.required]),
+      destino: new FormControl(null, [Validators.required]),
       tipo: new FormControl(''),
       adultos: new FormControl(1),
       criancas: new FormControl(0),
       bebes: new FormControl(0),
+      dataIda: new FormControl(null, [Validators.required]),
+      dataVolta,
+      conexoes: new FormControl(null),
+      companhias: new FormControl(null),
+      precoMin: new FormControl(null),
+      precoMax: new FormControl(null),
+    });
+
+    somenteIda.valueChanges.subscribe((somenteIda) => {
+      if (somenteIda) {
+        dataVolta.disable();
+        dataVolta.setValidators(null);
+      } else {
+        dataVolta.enable();
+        dataVolta.setValidators([Validators.required]);
+      }
+      dataVolta.updateValueAndValidity;
     });
   }
 
@@ -47,12 +67,50 @@ export class FormBuscaService {
     return descricao;
   }
 
-  obterControle(nome: string): FormControl {
+  obterControle<T>(nome: string): FormControl {
     const control = this.formBusca.get(nome);
     if (!control) {
       throw new Error(`FormControl com nome "${nome}" não existe.`);
     }
-    return control as FormControl;
+    return control as FormControl<T>;
+  }
+
+  obterDadosBusca(): DadosBusca {
+    const dataIdaControl = this.obterControle<Date>('dataIda');
+    const dadosBusca: DadosBusca = {
+      pagina: 1,
+      porPagina: 50,
+      somenteIda: this.obterControle<boolean>('somenteIda').value,
+      origemId: this.obterControle<number>('origem').value.id,
+      destinoId: this.obterControle<boolean>('destino').value.id,
+      tipo: this.obterControle<string>('tipo').value,
+      passageirosAdultos: this.obterControle<number>('adultos').value,
+      passageirosCriancas: this.obterControle<number>('criancas').value,
+      passageirosBebes: this.obterControle<number>('bebes').value,
+      dataIda: dataIdaControl.value.toISOString(),
+    };
+    const dataVoltaControl = this.obterControle<Date>('dataVolta');
+    if (dataVoltaControl.value) {
+      dadosBusca.dataVolta = dataVoltaControl.value.toISOString();
+    }
+
+    const conexoesControl = this.obterControle<number>('conexoes');
+    if (conexoesControl.value) {
+      dadosBusca.conexoes = conexoesControl.value;
+    }
+    const companhiasControl = this.obterControle<number[]>('companhias');
+    if (companhiasControl.value) {
+      dadosBusca.companhiasId = companhiasControl.value;
+    }
+    const precoMinControl = this.obterControle<number>('precoMin');
+    if (precoMinControl.value) {
+      dadosBusca.precoMin = precoMinControl.value;
+    }
+    const precoMaxControl = this.obterControle<number>('precoMin');
+    if (precoMaxControl.value) {
+      dadosBusca.precoMax = precoMaxControl.value;
+    }
+    return dadosBusca;
   }
 
   openDialog() {
@@ -77,5 +135,9 @@ export class FormBuscaService {
       origem: destino,
       destino: origem,
     });
+  }
+
+  get formEstaValido() {
+    return this.formBusca.valid;
   }
 }

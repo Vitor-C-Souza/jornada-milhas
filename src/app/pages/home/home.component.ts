@@ -3,6 +3,7 @@ import { PromocaoService } from '../../core/services/promocao.service';
 import { Promocao } from '../../core/types/promocao';
 import { DepoimentosService } from '../../core/services/depoimentos.service';
 import { Depoimento } from '../../core/types/depoimento';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { Depoimento } from '../../core/types/depoimento';
 export class HomeComponent implements OnInit {
   constructor(
     private promocaoService: PromocaoService,
-    private depoimentoService: DepoimentosService
+    private depoimentoService: DepoimentosService,
+    private router: Router
   ) {}
 
   promocoes: Promocao[] = [];
@@ -26,5 +28,8 @@ export class HomeComponent implements OnInit {
     this.depoimentoService.listar().subscribe((values) => {
       this.depoimentos = values;
     });
+  }
+  navegarParaBusca($event: any) {
+    this.router.navigateByUrl('/busca');
   }
 }
